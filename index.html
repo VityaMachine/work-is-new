@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bonus Calculator</title>
+
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="logo">
+          <span class="logo__mark">IS</span>
+          <span class="logo__text">Calculation tool</span>
+        </div>
+
+        <nav class="nav">
+          <a href="#/" class="nav__link" data-route-link="#/">Main</a>
+          <a href="#/employees" class="nav__link" data-route-link="#/employees"
+            >Employees</a
+          >
+          <a href="#/settings" class="nav__link" data-route-link="#/settings"
+            >Global params</a
+          >
+        </nav>
+      </aside>
+
+      <main class="main">
+        <section data-view="dashboard" class="view"></section>
+        <section data-view="team" class="view" hidden></section>
+        <section data-view="employees" class="view" hidden></section>
+        <section data-view="settings" class="view" hidden></section>
+        <section data-view="not-found" class="view" hidden></section>
+      </main>
+    </div>
+
+    <script type="module" src="./scripts/main.js"></script>
+  </body>
+</html>
