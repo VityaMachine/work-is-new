@@ -18,9 +18,33 @@
 
         <nav class="nav">
           <a href="#/" class="nav__link" data-route-link="#/">Main</a>
-          <a href="#/employees" class="nav__link" data-route-link="#/employees"
-            >Employees</a
-          >
+          <div class="nav-group">
+            <a
+              href="#/employees/users"
+              class="nav__link"
+              data-route-link="#/employees/users"
+            >
+              Employees
+            </a>
+
+            <div class="nav-submenu">
+              <a
+                href="#/employees/users"
+                class="nav__sublink"
+                data-route-link="#/employees/users"
+              >
+                IDs and logins
+              </a>
+
+              <a
+                href="#/employees/monthly-data"
+                class="nav__sublink"
+                data-route-link="#/employees/monthly-data"
+              >
+                Monthly teams data
+              </a>
+            </div>
+          </div>
           <a href="#/settings" class="nav__link" data-route-link="#/settings"
             >Global params</a
           >
@@ -30,7 +54,12 @@
       <main class="main">
         <section data-view="dashboard" class="view"></section>
         <section data-view="team" class="view" hidden></section>
-        <section data-view="employees" class="view" hidden></section>
+        <section data-view="employees-users" class="view" hidden></section>
+        <section
+          data-view="employees-monthly-data"
+          class="view"
+          hidden
+        ></section>
         <section data-view="settings" class="view" hidden></section>
         <section data-view="not-found" class="view" hidden></section>
       </main>

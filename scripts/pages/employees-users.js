@@ -1,13 +1,12 @@
 import { bindEmployeesEvents } from "../lib/users-lib.js";
 import renderUsersTable from "../components/users/usersTable.js";
 
-const employeesView = document.querySelector('[data-view="employees"]');
+const employeesView = document.querySelector('[data-view="employees-users"]');
 
 export default function renderEmployeesPage() {
   employeesView.innerHTML = `
     <header class="page-header">
       <div>
-        <p class="eyebrow">Directory</p>
         <h1>Employees</h1>
         <p class="page-description">
           Manage base employees list used for bonus calculations.

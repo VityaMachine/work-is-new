@@ -14,7 +14,11 @@ export function getRoute() {
 
   const routes = {
     "#/": { view: "dashboard", params: {} },
-    "#/employees": { view: "employees", params: {} },
+
+    "#/employees": { view: "employees-users", params: {} },
+    "#/employees/users": { view: "employees-users", params: {} },
+    "#/employees/monthly-data": { view: "employees-monthly-data", params: {} },
+
     "#/settings": { view: "settings", params: {} },
   };
 
@@ -32,6 +36,9 @@ export function setActiveNav() {
   const links = document.querySelectorAll("[data-route-link]");
 
   links.forEach((link) => {
-    link.classList.toggle("nav__link--active", link.dataset.routeLink === hash);
+    const isActive = link.dataset.routeLink === hash;
+
+    link.classList.toggle("nav__link--active", isActive);
+    link.classList.toggle("nav__sublink--active", isActive);
   });
 }

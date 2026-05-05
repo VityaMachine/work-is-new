@@ -4,7 +4,7 @@ import { loadJSON } from "./utils/json-loader.js";
 
 import renderDashboardPage from "./pages/dashboard.js";
 import renderTeamPage from "./pages/team.js";
-import renderEmployeesPage from "./pages/employees.js";
+import renderEmployeesUsersPage from "./pages/employees-users.js";
 import renderSettingsPage from "./pages/settings.js";
 import renderNotFoundPage from "./pages/not-found.js";
 
@@ -17,7 +17,9 @@ function render() {
 
   if (route.view === "dashboard") renderDashboardPage(teams);
   if (route.view === "team") renderTeamPage(teams, route.params.teamId);
-  if (route.view === "employees") renderEmployeesPage();
+  if (route.view === "employees-users") {
+    renderEmployeesUsersPage();
+  }
   if (route.view === "settings") renderSettingsPage();
   if (route.view === "not-found") renderNotFoundPage();
 
