@@ -1,11 +1,21 @@
 import { state } from "../state.js";
 
 import renderUsersTable from "../components/users/usersTable.js";
+import { loadJSON } from "../utils/json-loader.js";
 
 let runtimeUserCounter = 1;
 
 function createRuntimeId() {
   return `user-${runtimeUserCounter++}`;
+}
+
+export async function initSavedUsers(path) {
+  const savedUsers = await loadJSON(path);
+
+  state.employeesData.usersBase = savedUsers.map((user) => ({
+    ...user,
+    runtimeId: createRuntimeId(),
+  }));
 }
 
 export function getAllUsers() {
@@ -24,9 +34,9 @@ export function getFilteredUsers() {
 
   return getAllUsers().filter((user) => {
     return (
-      user.id.toLowerCase().includes(query) ||
-      user.login.toLowerCase().includes(query) ||
-      user.fullName.toLowerCase().includes(query)
+      String(user.id).toLowerCase().includes(query) ||
+      String(user.login).toLowerCase().includes(query) ||
+      String(user.fullName).toLowerCase().includes(query)
     );
   });
 }
@@ -42,6 +52,15 @@ function closeAddEmployeeModal() {
 
   if (modal) modal.hidden = true;
   if (form) form.reset();
+}
+
+function checkIsUserAdded(users, newUserId, newUserLogin, newUserFullName) {
+  return users.some(
+    (user) =>
+      user.id === newUserId ||
+      user.login === newUserLogin ||
+      user.fullName === newUserFullName,
+  );
 }
 
 function addEmployee(event) {
@@ -62,7 +81,12 @@ function addEmployee(event) {
 
   const currentUsers = getAllUsers();
 
-  console.log(currentUsers);
+  const isUserAdded = checkIsUserAdded(currentUsers, id, login, fullName);
+
+  if (isUserAdded) {
+    alert("User is currently in base");
+    return;
+  }
 
   state.employeesData.usersSession.push({
     runtimeId: createRuntimeId(),
@@ -101,6 +125,22 @@ function saveEditedUser(runtimeId) {
   renderUsersTable();
 }
 
+export function downloadUsersJson() {
+  const users = getAllUsers();
+
+  const json = JSON.stringify(users.map(({ runtimeId, ...rest }) => rest));
+
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "users.json";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
 export function bindEmployeesEvents() {
   const openModalBtn = document.getElementById("openAddEmployeeModalBtn");
   const closeModalBtn = document.getElementById("closeAddEmployeeModalBtn");
@@ -108,11 +148,13 @@ export function bindEmployeesEvents() {
   const form = document.getElementById("addEmployeeForm");
   const searchInput = document.getElementById("usersSearchInput");
   const tableBody = document.getElementById("usersTableBody");
+  const downloadBtn = document.getElementById("exportUsersJsonBtn");
 
   openModalBtn?.addEventListener("click", openAddEmployeeModal);
   closeModalBtn?.addEventListener("click", closeAddEmployeeModal);
   cancelBtn?.addEventListener("click", closeAddEmployeeModal);
   form?.addEventListener("submit", addEmployee);
+  downloadBtn?.addEventListener("click", downloadUsersJson);
 
   searchInput?.addEventListener("input", (e) => {
     state.employeesData.usersFilter = e.target.value;
