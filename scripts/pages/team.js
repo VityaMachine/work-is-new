@@ -1,10 +1,13 @@
+import { showView } from "../utils/router.js";
+import renderNotFoundPage from "./not-found.js";
+
 const teamView = document.querySelector('[data-view="team"]');
 
 export default function renderTeamPage(teams, teamId) {
   const team = teams.find((team) => team.id === teamId);
 
   if (!team) {
-    renderNotFound();
+    renderNotFoundPage();
     showView("not-found");
     return;
   }
@@ -15,7 +18,7 @@ export default function renderTeamPage(teams, teamId) {
         <h1>${team.name}</h1>
       </div>
 
-      <a href="#/" class="button button--secondary">← Go to main</a>
+      <a href="#/" class="button button--secondary">&larr; Go to main</a>
     </header>
 
     <section class="toolbar">

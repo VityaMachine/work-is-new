@@ -1,0 +1,12 @@
+[
+  {
+    "id": "team-a",
+    "name": "Team A",
+    "description": "Bonus calculation for Team A"
+  },
+  {
+    "id": "team-b",
+    "name": "Team B",
+    "description": "Bonus calculation for Team B"
+  }
+]

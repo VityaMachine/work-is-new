@@ -1,9 +1,3 @@
-import { loadJSON } from "./json-loader.js";
-
-const teams = await loadJSON("../../data/teams.json");
-
-// import { teams } from "../../data/teams.js";
-
 const views = document.querySelectorAll("[data-view]");
 
 export function getRoute() {

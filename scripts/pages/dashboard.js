@@ -4,7 +4,7 @@ export default function renderDashboardPage(teams) {
   dashboardView.innerHTML = `
     <header class="page-header">
       <div>
-        <h1>Inscentive scheme calculation tool</h1>
+        <h1>Incentive scheme calculation tool</h1>
         <p class="page-description">
           Check global params, select period and team, upload data, make corrections and get result
         </p>
@@ -36,7 +36,7 @@ export default function renderDashboardPage(teams) {
             (team) => `
               <a href="#/team/${team.id}" class="team-card">
                 <h3>${team.name}</h3>
-                <span>Start calculation →</span>
+                <span>Start calculation &rarr;</span>
               </a>
             `,
           )

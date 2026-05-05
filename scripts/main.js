@@ -1,6 +1,5 @@
-import { loadJSON } from "./utils/json-loader.js";
-
 import { getRoute, showView, setActiveNav } from "./utils/router.js";
+import { loadJSON } from "./utils/json-loader.js";
 
 import renderDashboardPage from "./pages/dashboard.js";
 import renderTeamPage from "./pages/team.js";
@@ -8,7 +7,7 @@ import renderEmployeesPage from "./pages/employees.js";
 import renderSettingsPage from "./pages/settings.js";
 import renderNotFoundPage from "./pages/not-found.js";
 
-const teams = await loadJSON("../data/teams.json");
+const teams = await loadJSON("./configs/teams.json");
 
 function render() {
   const route = getRoute();
