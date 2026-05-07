@@ -18,6 +18,7 @@ export function getRoute() {
     "#/employees": { view: "employees-users", params: {} },
     "#/employees/users": { view: "employees-users", params: {} },
     "#/employees/monthly-data": { view: "employees-monthly-data", params: {} },
+    "#/employees/csv-data": { view: "employees-csv-data", params: {} },
 
     "#/settings": { view: "settings", params: {} },
   };
@@ -34,11 +35,26 @@ export function showView(viewName) {
 export function setActiveNav() {
   const hash = window.location.hash || "#/";
   const links = document.querySelectorAll("[data-route-link]");
+  const submenus = document.querySelectorAll("[data-submenu-for]");
 
   links.forEach((link) => {
-    const isActive = link.dataset.routeLink === hash;
+    const route = link.dataset.routeLink;
 
-    link.classList.toggle("nav__link--active", isActive);
-    link.classList.toggle("nav__sublink--active", isActive);
+    const isExactActive = route === hash;
+
+    const isParentActive =
+      link.dataset.navParent === "true" && hash.startsWith(route);
+
+    link.classList.toggle("nav__link--active", isExactActive || isParentActive);
+
+    link.classList.toggle("nav__sublink--active", isExactActive);
+  });
+
+  submenus.forEach((submenu) => {
+    const parentRoute = submenu.dataset.submenuFor;
+
+    const isOpen = hash.startsWith(parentRoute);
+
+    submenu.classList.toggle("nav-submenu--open", isOpen);
   });
 }

@@ -3,6 +3,8 @@ import { state } from "../state.js";
 import renderUsersTable from "../components/users/usersTable.js";
 import { loadJSON } from "../utils/json-loader.js";
 
+import { openModal, closeModal } from "./modal-manager.js";
+
 let runtimeUserCounter = 1;
 
 function createRuntimeId() {
@@ -42,16 +44,72 @@ export function getFilteredUsers() {
 }
 
 function openAddEmployeeModal() {
-  const modal = document.getElementById("addEmployeeModal");
-  if (modal) modal.hidden = false;
+  openModal({
+    eyebrow: "Employee",
+    title: "Add Employee",
+    content: `
+      <form
+        class="modal-form"
+        id="addEmployeeForm"
+      >
+        <label class="field">
+          <span>ID</span>
+
+          <input
+            type="text"
+            id="employeeIdInput"
+            placeholder="e.g. 001"
+          />
+        </label>
+
+        <label class="field">
+          <span>Login</span>
+
+          <input
+            type="text"
+            id="employeeLoginInput"
+            placeholder="ivanenko.i"
+          />
+        </label>
+
+        <label class="field">
+          <span>Full Name</span>
+
+          <input
+            type="text"
+            id="employeeFullNameInput"
+            placeholder="Ivanenko Ivan"
+          />
+        </label>
+      </form>
+    `,
+    actions: `
+      <button
+        class="button button--secondary"
+        type="button"
+        data-modal-close
+      >
+        Cancel
+      </button>
+
+      <button
+        class="button"
+        type="submit"
+        form="addEmployeeForm"
+      >
+        Add Employee
+      </button>
+    `,
+    onOpen: () => {
+      document
+        .getElementById("addEmployeeForm")
+        ?.addEventListener("submit", addEmployee);
+    },
+  });
 }
 
 function closeAddEmployeeModal() {
-  const modal = document.getElementById("addEmployeeModal");
-  const form = document.getElementById("addEmployeeForm");
-
-  if (modal) modal.hidden = true;
-  if (form) form.reset();
+  closeModal();
 }
 
 function checkIsUserAdded(users, newUserId, newUserLogin, newUserFullName) {
@@ -143,17 +201,11 @@ export function downloadUsersJson() {
 
 export function bindEmployeesEvents() {
   const openModalBtn = document.getElementById("openAddEmployeeModalBtn");
-  const closeModalBtn = document.getElementById("closeAddEmployeeModalBtn");
-  const cancelBtn = document.getElementById("cancelAddEmployeeBtn");
-  const form = document.getElementById("addEmployeeForm");
   const searchInput = document.getElementById("usersSearchInput");
   const tableBody = document.getElementById("usersTableBody");
   const downloadBtn = document.getElementById("exportUsersJsonBtn");
 
   openModalBtn?.addEventListener("click", openAddEmployeeModal);
-  closeModalBtn?.addEventListener("click", closeAddEmployeeModal);
-  cancelBtn?.addEventListener("click", closeAddEmployeeModal);
-  form?.addEventListener("submit", addEmployee);
   downloadBtn?.addEventListener("click", downloadUsersJson);
 
   searchInput?.addEventListener("input", (e) => {

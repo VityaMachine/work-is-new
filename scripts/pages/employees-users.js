@@ -61,48 +61,6 @@ export default function renderEmployeesPage() {
         </table>
       </div>
     </section>
-
-    <div class="modal-backdrop" id="addEmployeeModal" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addEmployeeModalTitle">
-        <div class="modal__header">
-          <div>
-            <p class="eyebrow">Employee</p>
-            <h2 id="addEmployeeModalTitle">Add Employee</h2>
-          </div>
-
-          <button class="icon-button" type="button" id="closeAddEmployeeModalBtn" aria-label="Close modal">
-            &times;
-          </button>
-        </div>
-
-        <form class="modal__body" id="addEmployeeForm">
-          <label class="field">
-            <span>ID</span>
-            <input type="text" id="employeeIdInput" placeholder="e.g. 001" />
-          </label>
-
-          <label class="field">
-            <span>Login</span>
-            <input type="text" id="employeeLoginInput" placeholder="ivanenko.i" />
-          </label>
-
-          <label class="field">
-            <span>Full Name</span>
-            <input type="text" id="employeeFullNameInput" placeholder="Ivanenko Ivan" />
-          </label>
-
-          <div class="modal__actions">
-            <button class="button button--secondary" type="button" id="cancelAddEmployeeBtn">
-              Cancel
-            </button>
-
-            <button class="button" type="submit">
-              Add Employee
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
   `;
 
   bindEmployeesEvents();

@@ -14,15 +14,17 @@
 body {
   background: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
 }
 
 .app {
-  display: grid;
-  grid-template-columns: 280px 1fr;
+  display: flex;
   min-height: 100vh;
 }
 
 .sidebar {
+  flex-shrink: 0;
+  width: 280px;
   background: #111827;
   color: #ffffff;
   padding: 24px;
@@ -36,8 +38,9 @@ body {
 }
 
 .logo__mark {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 42px;
   height: 42px;
   border-radius: 12px;
@@ -50,7 +53,8 @@ body {
 }
 
 .nav {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -67,12 +71,16 @@ body {
 }
 
 .main {
+  flex: 1;
+  min-width: 0;
   padding: 32px;
 }
 
 .view {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .view[hidden] {
@@ -118,6 +126,7 @@ h2 {
 }
 
 .card {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -134,12 +143,15 @@ h2 {
 }
 
 .form-grid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   max-width: 320px;
 }
 
 .field {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -156,13 +168,16 @@ input {
 }
 
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
 .team-card {
-  display: grid;
+  flex: 1 1 calc(33.333% - 16px);
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   padding: 20px;
   border: 1px solid var(--border);
@@ -239,8 +254,9 @@ input {
 }
 
 .empty-state {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 160px;
   border: 1px dashed var(--border);
   border-radius: 14px;
@@ -258,8 +274,9 @@ input {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
   background: rgba(15, 23, 42, 0.55);
 }
@@ -285,7 +302,8 @@ input {
 }
 
 .modal__body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   padding: 24px;
 }
@@ -298,8 +316,9 @@ input {
 }
 
 .icon-button {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 36px;
   height: 36px;
   border: 0;
@@ -313,11 +332,16 @@ input {
 
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  max-width: 100%;
+  max-height: 520px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
 }
 
 .data-table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
 }
 
@@ -327,9 +351,13 @@ input {
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .data-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background: var(--surface-soft);
   font-size: 13px;
   text-transform: uppercase;
@@ -362,16 +390,22 @@ input {
 }
 
 .nav-group {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
 
 .nav-submenu {
-  display: grid;
+  display: none;
+  flex-direction: column;
   gap: 4px;
   margin-left: 14px;
   padding-left: 12px;
   border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.nav-submenu--open {
+  display: flex;
 }
 
 .nav__sublink {
@@ -387,19 +421,71 @@ input {
   color: #ffffff;
 }
 
+.textarea {
+  width: 100%;
+  min-height: 260px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  resize: vertical;
+  font: inherit;
+  background: #ffffff;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.monthly-preview-wrapper {
+  margin-top: 8px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.checkbox-field input {
+  width: auto;
+}
+
+select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  font: inherit;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 @media (max-width: 900px) {
   .app {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
   .sidebar {
     position: sticky;
     top: 0;
     z-index: 10;
+    width: 100%;
   }
 
   .nav {
-    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .nav__link {
+    flex: 1 1 auto;
   }
 
   .main {
@@ -407,10 +493,10 @@ input {
   }
 
   .page-header {
-    display: grid;
+    flex-direction: column;
   }
 
-  .team-grid {
-    grid-template-columns: 1fr;
+  .team-card {
+    flex-basis: 100%;
   }
 }

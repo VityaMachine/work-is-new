@@ -7,5 +7,14 @@ export const state = {
     usersSession: [],
     usersFilter: "",
     editingUserRuntimeId: null,
+
+    monthlyRows: [],
+    monthlyPreviewRows: [],
+
+    csvRows: [],
+    csvPreviewRows: [],
+    csvOriginalRows: [],
+    csvFilter: "",
+    csvHasHeaders: true,
   },
 };

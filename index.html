@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
+
   <body>
     <div class="app">
       <aside class="sidebar">
@@ -17,17 +18,17 @@
         </div>
 
         <nav class="nav">
-          <a href="#/" class="nav__link" data-route-link="#/">Main</a>
+          <a href="#/" class="nav__link" data-route-link="#/"> Main </a>
           <div class="nav-group">
             <a
               href="#/employees/users"
               class="nav__link"
-              data-route-link="#/employees/users"
+              data-route-link="#/employees"
+              data-nav-parent="true"
             >
               Employees
             </a>
-
-            <div class="nav-submenu">
+            <div class="nav-submenu" data-submenu-for="#/employees">
               <a
                 href="#/employees/users"
                 class="nav__sublink"
@@ -35,7 +36,6 @@
               >
                 IDs and logins
               </a>
-
               <a
                 href="#/employees/monthly-data"
                 class="nav__sublink"
@@ -43,11 +43,18 @@
               >
                 Monthly teams data
               </a>
+              <a
+                href="#/employees/csv-data"
+                class="nav__sublink"
+                data-route-link="#/employees/csv-data"
+              >
+                CSV data
+              </a>
             </div>
           </div>
-          <a href="#/settings" class="nav__link" data-route-link="#/settings"
-            >Global params</a
-          >
+          <a href="#/settings" class="nav__link" data-route-link="#/settings">
+            Global params
+          </a>
         </nav>
       </aside>
 
@@ -60,10 +67,13 @@
           class="view"
           hidden
         ></section>
+        <section data-view="employees-csv-data" class="view" hidden></section>
         <section data-view="settings" class="view" hidden></section>
         <section data-view="not-found" class="view" hidden></section>
       </main>
     </div>
+
+    <div id="modalRoot"></div>
 
     <script type="module" src="./scripts/main.js"></script>
   </body>
